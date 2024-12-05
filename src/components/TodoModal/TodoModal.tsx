@@ -6,19 +6,16 @@ import * as api from '../../api'
 
 type Props = {
   selectedTodo: Todo | null,
-  handleCloseModal: ()=> void,
+  handleCloseModal: () => void,
 }
 
 export const TodoModal: React.FC<Props> = React.memo(({ selectedTodo, handleCloseModal }) => {
 
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     if (!selectedTodo) {
       setUser(null);
-      setLoading(false);
       return;
     }
 
@@ -29,7 +26,7 @@ export const TodoModal: React.FC<Props> = React.memo(({ selectedTodo, handleClos
     <div className="modal is-active" data-cy="modal">
       <div className="modal-background" />
 
-      {loading && !user? (
+      {!user ? (
         <Loader />
       ) : (
         <div className="modal-card">
@@ -48,7 +45,6 @@ export const TodoModal: React.FC<Props> = React.memo(({ selectedTodo, handleClos
               data-cy="modal-close"
               onClick={() => {
                 setUser(null);
-                setLoading(true);
                 handleCloseModal()
               }}
             />

@@ -18,7 +18,7 @@ export enum SortType {
 }
 
 
-const getFilteredTodods = (
+const getFilteredTodos = (
   todos: Todo[],
   sort: string,
   query: string,
@@ -45,7 +45,6 @@ export const App: React.FC = () => {
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const [query, setQuery] = useState('');
 
-
   useEffect(() => {
     api.getTodos().then(setTodos);
   }, []);
@@ -54,11 +53,9 @@ export const App: React.FC = () => {
     setSortBy(value)
   }, []);
 
-
   const getTodo = useCallback((todo: Todo) => {
     setSelectedTodo((prevTodo) => (prevTodo?.id !== todo.id ? todo : prevTodo));
   }, []);
-
 
   const handleCloseModal = () => {
     setSelectedTodo(null);
@@ -72,7 +69,7 @@ export const App: React.FC = () => {
     setQuery('');
   }, []);
 
-  const filteredTodos = getFilteredTodods(todos, sortBy, query);
+  const filteredTodos = getFilteredTodos(todos, sortBy, query);
 
   return (
     <>
